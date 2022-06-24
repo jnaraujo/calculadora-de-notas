@@ -94,11 +94,7 @@ export default function Final() {
           </div>
           <div
             className={`${
-              notaNecessaria <= 6.5
-                ? "good"
-                : notaNecessaria <= 8
-                ? "ok"
-                : "bad"
+              notaNecessaria <= 5 ? "good" : notaNecessaria <= 7 ? "ok" : "bad"
             }`}
           >
             {notaNecessaria.toPrecision(2)}

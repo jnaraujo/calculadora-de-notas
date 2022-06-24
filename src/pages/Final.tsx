@@ -50,7 +50,7 @@ export default function Final() {
         </div>
         <form>
           <div className="group">
-            Nota da primeira prova:{" "}
+            Nota da primeira prova (peso 2):{" "}
             <div className="notes">
               <input
                 type="number"
@@ -63,7 +63,7 @@ export default function Final() {
             </div>
           </div>
           <div className="group">
-            Nota da segunda prova:{" "}
+            Nota da segunda prova (peso 3):{" "}
             <input
               type="number"
               {...register("segunda")}
@@ -75,7 +75,7 @@ export default function Final() {
             />
           </div>
           <div className="group">
-            Nota da terceira prova:{" "}
+            Nota da terceira prova (peso 3):{" "}
             <input
               type="number"
               {...register("terceira")}

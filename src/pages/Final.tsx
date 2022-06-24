@@ -46,10 +46,7 @@ export default function Final() {
       <div className="Content">
         <div className="top">
           <h1>Calculadora de nota em Pré-Cálculo</h1>
-          <p>
-            Para saber quanto você precisa tirar na última prova para ficar na
-            média de 7.
-          </p>
+          <p>Para saber quanto você precisa tirar na última prova final.</p>
         </div>
         <form>
           <div className="group">

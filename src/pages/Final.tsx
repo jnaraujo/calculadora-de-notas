@@ -2,37 +2,41 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "../styles/Home.scss";
 
-export default function Home() {
+export default function Final() {
   const { register, watch, setValue } = useForm();
 
   const [notaNecessaria, setNotaNecessaria] = useState(10);
+  const [media, setMedia] = useState(7);
 
   const pesos = {
-    1: 2,
-    2: 3,
-    3: 3,
+    primeira: 2,
+    segunda: 3,
+    terceira: 3,
   };
 
   const mediaMinima = 7;
 
   useEffect(() => {
     const subscription = watch((prova, { name }) => {
-      const notasUsuario = [prova.primeira, prova.segunda];
+      const notasUsuario = [prova.primeira, prova.segunda, prova.terceira];
 
       if (name && (prova[name] < 0 || prova[name] > 10)) {
-        setValue(name, Math.min(Math.max(0, prova[name]), 10));
+        return setValue(name, Math.min(Math.max(0, prova[name]), 10));
       }
 
       const notasPesos = {
-        primeira: (Number(notasUsuario[0]) * pesos[1]) / 8,
-        segunda: (Number(notasUsuario[1]) * pesos[2]) / 8,
+        primeira: (Number(notasUsuario[0]) * pesos.primeira) / 8,
+        segunda: (Number(notasUsuario[1]) * pesos.segunda) / 8,
+        terceira: (Number(notasUsuario[2]) * pesos.terceira) / 8,
       };
 
-      const notaAtual = notasPesos.primeira + notasPesos.segunda;
+      const notaAtual =
+        notasPesos.primeira + notasPesos.segunda + notasPesos.terceira;
 
-      const precisaTirar = ((mediaMinima - notaAtual) * 8) / 3;
+      const precisaTirar = Math.abs((notaAtual * 0.6 - 5) / 0.4);
 
-      setNotaNecessaria(precisaTirar);
+      setNotaNecessaria(notaAtual >= mediaMinima ? 0 : precisaTirar);
+      setMedia(notaAtual);
     });
     return () => subscription.unsubscribe();
   }, [watch]);
@@ -73,14 +77,23 @@ export default function Home() {
               maxLength={10}
             />
           </div>
+          <div className="group">
+            Nota da terceira prova:{" "}
+            <input
+              type="number"
+              {...register("terceira")}
+              step={0.1}
+              defaultValue={5}
+              min={0}
+              max={10}
+              maxLength={10}
+            />
+          </div>
         </form>
-        <div className="line"></div>
+        <div className="media">Sua média: {media.toPrecision(2)}</div>
         <div className={`finalnote`}>
           <div>
-            <p>
-              Quanto você vai precisar tirar na última prova para não ir pra
-              final:
-            </p>
+            <p>Quanto você vai precisar tirar na final:</p>
           </div>
           <div
             className={`${

@@ -4,13 +4,12 @@ import "../styles/Home.scss";
 
 export default function Home() {
   const { register, watch, setValue } = useForm();
-
   const [notaNecessaria, setNotaNecessaria] = useState(10);
 
   const pesos = {
-    1: 2,
-    2: 3,
-    3: 3,
+    primeira: 2,
+    segunda: 3,
+    terceira: 3,
   };
 
   const mediaMinima = 7;
@@ -20,12 +19,12 @@ export default function Home() {
       const notasUsuario = [prova.primeira, prova.segunda];
 
       if (name && (prova[name] < 0 || prova[name] > 10)) {
-        setValue(name, Math.min(Math.max(0, prova[name]), 10));
+        return setValue(name, Math.min(Math.max(0, prova[name]), 10));
       }
 
       const notasPesos = {
-        primeira: (Number(notasUsuario[0]) * pesos[1]) / 8,
-        segunda: (Number(notasUsuario[1]) * pesos[2]) / 8,
+        primeira: (Number(notasUsuario[0]) * pesos.primeira) / 8,
+        segunda: (Number(notasUsuario[1]) * pesos.segunda) / 8,
       };
 
       const notaAtual = notasPesos.primeira + notasPesos.segunda;
